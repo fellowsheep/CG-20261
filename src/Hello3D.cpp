@@ -1,9 +1,9 @@
 /* Hello Triangle - código adaptado de https://learnopengl.com/#!Getting-started/Hello-Triangle
- *
+ * e https://antongerdelan.net/opengl/
  * Adaptado por Rossana Baptista Queiroz
  * para as disciplinas de Processamento Gráfico/Computação Gráfica - Unisinos
  * Versão inicial: 7/4/2017
- * Última atualização em 07/03/2025
+ * Última atualização em 03/03/2026
  */
 
 #include <iostream>
@@ -128,7 +128,7 @@ int main()
 		glfwPollEvents();
 
 		// Limpa o buffer de cor
-		glClearColor(1.0f, 1.0f, 1.0f, 1.0f); //cor de fundo
+		glClearColor(0.2f, 0.2f, 0.2f, 1.0f); //cor de fundo
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		glLineWidth(10);
