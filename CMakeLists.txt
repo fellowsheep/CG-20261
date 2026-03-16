@@ -36,8 +36,6 @@ FetchContent_MakeAvailable(stb_image)
 
 # Adiciona as pastas de cabeçalhos
 include_directories(${CMAKE_SOURCE_DIR}/include)
-include_directories(${CMAKE_SOURCE_DIR}/common)
-include_directories(${CMAKE_SOURCE_DIR}/include/glad)
 include_directories(${glm_SOURCE_DIR})
 include_directories(${stb_image_SOURCE_DIR})
 
@@ -65,10 +63,15 @@ endif()
 # Caminho esperado para a GLAD
 set(GLAD_C_FILE "${CMAKE_SOURCE_DIR}/common/glad.c")
 
+file(COPY ${CMAKE_SOURCE_DIR}/shaders DESTINATION ${CMAKE_BINARY_DIR}/)
+
 # Verifica se os arquivos da GLAD estão no lugar
 if (NOT EXISTS ${GLAD_C_FILE})
     message(FATAL_ERROR "Arquivo glad.c não encontrado! Baixe a GLAD manualmente em [https://glad.dav1d.de/](https://glad.dav1d.de/) e coloque glad.h em include/glad/ e glad.c em common/")
 endif()
+
+# Pega todos os arquivos de implementação da pasta commons e associa a variavel COMMON_SRC_FILES
+file(GLOB COMMON_SRC_FILES "${CMAKE_SOURCE_DIR}/common/*.c*")
 
 # Cria os executáveis iterando sobre a lista de projetos
 foreach(EXERCISE ${EXERCISES})
@@ -81,7 +84,7 @@ foreach(EXERCISE ${EXERCISES})
     endif()
 
     # Cria o executável com o nome da pasta
-    add_executable(${EXERCISE} ${SOURCES} ${GLAD_C_FILE})
+		add_executable(${EXERCISE} ${SOURCES} ${COMMON_SRC_FILES})
     
     # Configura os includes e linka as bibliotecas
     target_include_directories(${EXERCISE} PRIVATE ${CMAKE_SOURCE_DIR}/include/glad ${glm_SOURCE_DIR} ${stb_image_SOURCE_DIR})
